@@ -24,7 +24,6 @@ func findMedianSorted(nums1 []int, nums2 []int) float64 {
 		nums2 = tmp
 	}
 	m, n := len(nums1), len(nums2)
-	// 为什么 m+n+1，而不是m+n
 	num := (m + n)/2
 	// 0-m为m+1种切分的方法，二分查找在哪里切分，
 	for low, high := 0, m; low <= high; {
