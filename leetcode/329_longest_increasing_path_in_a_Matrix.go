@@ -10,12 +10,12 @@ func main() {
 	//[6,6,8],
 	//[2,1,1]
 	//]
-	matrix := [][]int{{9,9,4},
-		{6,6,8},
-		{2,1,1}}
-	//matrix := [][]int{{3,4,5},
-	//	{3,2,6},
-	//	{2,2,1}}
+	//matrix := [][]int{{9,9,4},
+	//	{6,6,8},
+	//	{2,1,1}}
+	matrix := [][]int{{3,4,5},
+		{3,2,6},
+		{2,2,1}}
 	//matrix := [][]int{{0,1,2,3,4,5,6,7,8,9},
 	//	{19,18,17,16,15,14,13,12,11,10},
 	//	{20,21,22,23,24,25,26,27,28,29},
@@ -52,10 +52,10 @@ func longestIncreasingPath(matrix [][]int) int {
 			//length := findIncrease(matrix, cache, i, j)
 			//longest = maxInt(length, longest)
 			//length := 0
-			right := findIncrease(matrix, cache, i, j, i, j+1) + 1
-			left := findIncrease(matrix, cache, i, j, i, j-1) + 1
-			up := findIncrease(matrix, cache, i, j, i-1, j) + 1
-			down := findIncrease(matrix, cache, i, j, i+1, j) + 1
+			right := findIncrease(matrix, cache, i, j, i, j+1)
+			left := findIncrease(matrix, cache, i, j, i, j-1)
+			up := findIncrease(matrix, cache, i, j, i-1, j)
+			down := findIncrease(matrix, cache, i, j, i+1, j)
 			cache[i][j] = maxInt(maxInt(right, left), maxInt(up, down))
 			longest = maxInt(longest, cache[i][j])
 		}
@@ -69,17 +69,18 @@ func findIncrease(matrix, cache [][]int, i, j, targetI, targetJ int) int {
 		return cache[i][j]
 	}
 	if targetI < 0 || targetJ < 0 || targetI >= len(matrix) || targetJ >= len(matrix[0]) || matrix[i][j] >= matrix[targetI][targetJ] {
-		return 0
+		return 1
 	}
 	if matrix[i][j] < matrix[targetI][targetJ] {
-		right := findIncrease(matrix, cache, targetI, targetJ, targetI, targetJ+1) + 1
-		left := findIncrease(matrix, cache, targetI, targetJ, targetI, targetJ-1) + 1
-		up := findIncrease(matrix, cache, targetI, targetJ, targetI-1, targetJ) + 1
-		down := findIncrease(matrix, cache, targetI, targetJ, targetI+1, targetJ) + 1
-		cache[i][j] = maxInt(maxInt(right, left), maxInt(up, down))
-		return cache[i][j]
+		right := findIncrease(matrix, cache, targetI, targetJ, targetI, targetJ+1)
+		left := findIncrease(matrix, cache, targetI, targetJ, targetI, targetJ-1)
+		up := findIncrease(matrix, cache, targetI, targetJ, targetI-1, targetJ)
+		down := findIncrease(matrix, cache, targetI, targetJ, targetI+1, targetJ)
+		cache[targetI][targetJ] = maxInt(maxInt(right, left), maxInt(up, down))
+		length := cache[targetI][targetJ] + 1
+		return length
 	}
-	return 0
+	return 1
 }
 
 // 回溯
