@@ -13,8 +13,11 @@ func main() {
 		sort(topK, arr[i])
 	}
 	fmt.Println(topK)
+	fmt.Println(printHeap(topK))
 }
 
+// 当前节点之前已经是小顶堆了，新来一个元素要逐层向上调整小顶堆
+// 也就是新来的元素放在最后
 func createHeap(array [16]int, k int) []int {
 	// slice 要先创建
 	top := make([]int, k)
@@ -51,4 +54,14 @@ func heap(topK []int)  {
 	for i := 0; i < len(topK); i++ {
 		makeHeap(topK, i)
 	}
+}
+
+func printHeap(topK []int) []int {
+	sort := make([]int, len(topK))
+	for i := 0; len(topK) > 0; i++ {
+		sort[i] = topK[0]
+		topK = topK[1:]
+		heap(topK)
+	}
+	return sort
 }
