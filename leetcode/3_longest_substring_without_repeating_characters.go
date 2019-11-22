@@ -8,7 +8,7 @@ func main() {
 //输入: "abcabcbb"
 //输出: 3
 //解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
-	s := "pwwkew"
+	s := "tmmzuxt"
 	fmt.Println(lengthOfLongestSubstring(s))
 }
 
@@ -21,11 +21,9 @@ func lengthOfLongestSubstring(s string) int {
 	read := make(map[rune]int)
 	for index, value := range s {
 		//length = maxInt(index - start, length)
-		if i, ok := read[value]; ok { // i < index
-			if i >= start {
-				length = maxInt(index - start, length)
-				start = i + 1
-			}
+		if i, ok := read[value]; ok && i >= start { // i < index
+			length = maxInt(index - start, length)
+			start = i + 1
 		} else {
 			length = maxInt(index - start + 1, length)
 		}
