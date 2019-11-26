@@ -29,6 +29,7 @@ func findMedianSorted(nums1 []int, nums2 []int) float64 {
 	for low, high := 0, m; low <= high; {
 		i := (low + high)/2
 		j := num - i
+		// i 和 j 都是变化的而且还是数组的索引，所以要限定其值范围，避免数组越界
 		if j > 0 && i < m && nums2[j-1] > nums1[i] {
 			low = i + 1
 		} else if i > 0 && j < n && nums1[i-1] > nums2[j] {
